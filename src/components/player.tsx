@@ -13,7 +13,7 @@ export default function Player() {
   useEffect(() => {
     const code = location.href.split("code=")[1]?.split("&")[0];
     if (code) {
-      history.replaceState(null, '', '/');
+      history.replaceState(null, '', location.pathname);
       getToken(code).then((token) => {
         store.setAccessToken(token[0]);
         store.setRefreshToken(token[1]);

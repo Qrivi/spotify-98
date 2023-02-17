@@ -21,7 +21,7 @@ export const authorize = (clientId: string, clientSecret: string) => {
   localStorage.setItem("clientSecret", clientSecret);
 
   let url = "https://accounts.spotify.com/authorize?response_type=code&scope=user-read-currently-playing";
-  url += "&redirect_uri=" + encodeURIComponent(`${location.protocol}//${location.host}`);
+  url += "&redirect_uri=" + encodeURIComponent(`${location.protocol}//${location.host}${location.pathname}`);
   url += "&client_id=" + encodeURIComponent(clientId);
   url += "&state=" + encodeURIComponent(connectionState);
 
@@ -36,7 +36,7 @@ export const getToken = async (code :string): Promise<[string,string]> => {
       'content-type': 'application/x-www-form-urlencoded'
     },
     body: new URLSearchParams({
-      redirect_uri: `${location.protocol}//${location.host}`,
+      redirect_uri: `${location.protocol}//${location.host}${location.pathname}`,
       grant_type: 'authorization_code',
       code,
     })
